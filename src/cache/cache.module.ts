@@ -14,7 +14,6 @@ import { CacheService } from './cache.service';
             password: process.env.REDIS_PASSWORD,
             port: +process.env.REDIS_PORT,
             ttl: +process.env.REDIS_TTL,
-            
           }),
         };
       },
