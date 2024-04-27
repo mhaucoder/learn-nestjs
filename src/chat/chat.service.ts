@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common/decorators/core';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
 
 @Injectable()
 export class ChatService {
-  create(createChatDto: CreateChatDto) {
+ 
+  create(message: string) {
     return 'This action adds a new chat';
   }
 
