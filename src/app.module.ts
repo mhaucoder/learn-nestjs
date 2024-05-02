@@ -10,16 +10,28 @@ import { RolesGuard } from './roles/roles.guard';
 import { AuthGuard } from './auth/auth.guard';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RolesModule } from './roles/roles.module';
-import { CacheCustomModule } from './cache/cache.module';
 import { ConfigModule } from '@nestjs/config';
-import { SocketGateway } from './socket/socket.gateway';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SocketModule } from './socket/socket.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.POSTGRES_HOST,
+      port: +process.env.POSTGRES_PORT,
+      username: process.env.POSTGRES_USERNAME,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      ssl: Boolean(process.env.POSTGRES_SSL),
+      entities: [User],
+      // autoLoadEntities: true,
+      synchronize: true, 
+    }),
     MongooseModule.forRoot(process.env.MONGODB_URL,{
       dbName: 'nestjs-project',
       connectionName: "mongoDB"
